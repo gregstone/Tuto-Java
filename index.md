@@ -1,5 +1,7 @@
 # TUTO JAVA 
 
+[page 2](https://gregstone.github.io/page2)
+
 ## Divers tuto 
 
 [OpenClassRooms](https://openclassrooms.com/courses/apprenez-a-programmer-en-java/installer-les-outils-de-developpement)
