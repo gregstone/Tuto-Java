@@ -1,7 +1,7 @@
 # TUTO JAVA 
 
 ## **SOMMAIRE** 
-* **[All]**(https://gregstone.github.io/all)
+* [All](https://gregstone.github.io/all)
 
 * [Definitions](https://gregstone.github.io/definition)
 * [Premier programme](https://gregstone.github.io/premier)
