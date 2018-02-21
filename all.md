@@ -1278,3 +1278,439 @@ public class A {
 * **Les classes déclarées public sont visibles depuis l'extérieur du package qui les contient.**
 * **Les classes n'ayant pas été déclarées public ne sont pas visibles depuis l'extérieur du package qui les contient.**
 * Si une classe déclarée public dans son package a une variable d'un type ayant une portée default, cette dernière ne pourra pas être modifiée depuis l'extérieur de son package.
+
+
+
+# DIVERS AUTRE
+
+
+Opérateur d'affectation (=): la lecture du code se fait de droite ) gauche. 
+
+Opérateur de comparaison : 
+
+`|` les deux éléments sont évalué 
+`||` SI le premier éléments est vrai le second éléments n'est pas évalué 
+
+`&` Les deux éléments sont évalués 
+`&&` SI le premier élément est vrai le second n'est pas évalué 
+
+Incrémentation / décrémentation 
+**La position du + à une influence sur le résultat**
+x = 8 
+y; 
+
+y = ++x // y = 9 et x = 9
+> 1. on réalise d'abord l'incrmentation de x 
+> 2. x vaut désormais 9 
+> 3. on affecte la nouvelle valeur de x à y 
+> 4. y vaut donc 9
+
+y = x++ // y = 8 et x = 9  
+> On affecte d'abord la valeur de x à y 
+> y vaut donc 8 
+> Ensuite on incrémente la valeur de x 
+> x vaut donc désormais 9 
+
+
+## Block d'instruction 
+
+Toute variable déclaré à l'interieure d'un bloc d'instruction n'est visible qu'à l'interieure de ce même bloc 
+* on ne peut pas appeler cette variable depuis l'exterieure de ce bloc
+
+## Switch case 
+
+* utilisable sur les variables de type `int` `char` `String`
+
+Un switch case sans break va executer l'ensemble des instruction 
+Pour que celui ci s'arrète lorsqu'un cas est vrai (= lorsque que la condition est remplis)
+* il faut ajouter un break à la fin de chacun des cas. 
+* De cette manière le `switch case` fonctionne comme un if 
+
+`default` permet de renvoyer quelque chose SI : 
+* aucun cas n'as été validé 
+**OU**
+* même si la valeur saisie correspond à un cas listé mais qu'aucun break n'as mis fin à l'
+
+``` java
+int nbPlanetes = 8
+
+switch(nbPlanetes) {
+	case 8 : 
+		System.out.println("cas 1");
+		break;
+	case 9 : 
+		System.out.println("cas 2");
+		break;
+	default : 
+		System.out.println(""default case);
+		break;
+} 
+
+```
+
+## Les classes 
+
+* On dvrait parler de classes d'objets 
+
+### Propriétés des classes 
+
+Propriétés d'une classe = attributs = variables d'instance = caractéristique de la classe
+
+Les varaibles déclaré dans une classe on des valeurs par défaut : 
+* `int` = 0
+* `boolain` = false
+
+## Appel de méthodes 
+
+``` java
+/* ###############################################################################
+                DEFINITION D'UNE METHODE DE LA CLASSE Planete 
+###################################################################################*/
+
+/* Class Planete.java */
+
+  String nom;
+  int diametre;
+  String matiere;
+    
+  void rotation() {
+    System.out.println("Je suis la planète" + nom +"et je tourne sur moi-même. ");
+  }
+
+/* ###############################################################################
+                APPEL D'UNE METHODE DANS LE main 
+###################################################################################*/
+
+/* Class principale --> methode main*/
+
+  mars.rotation(); 
+
+```
+
+## Méthode retournant des informations 
+
+```java
+int accelerer() {
+  System.out.println("j'accelere");
+  return 100; 
+}
+```
+> la méthode retourne un entier `int` de valeur 100
+
+## paramétrer une méthode à l'invocation 
+
+
+``` java 
+passerRapport(typeDeParametre nomDuParametre, deuxiemeParametre); 
+
+passerRapport(boolean augmenter) {
+  if (augmenter) {
+    rapportCourant++; 
+  }
+  else {
+    rapportCourant--; 
+  }
+  return rapportCourant; 
+}
+
+// Dans le main 
+
+int nouveauRapport = voitureDeMichel.passerRapport(true); 
+
+System.out.println("le nouveau rapport est" + nouveauRapport); // retourne 1 
+
+voitureDeMichel.passerRapport(true); // incrémente de 1
+nouveauRapport = voitureDeMichel.passerRapport(true); // incrémente de 1 
+
+System.out.println("le nouveau rapport est" + nouveauRapport); // retourne 3
+
+nouveauRapport = voitureDeMichel.passerRapport(false); // décrémente de 1
+
+System.out.println("le nouveau rapport est" + nouveauRapport); // retourne 2
+
+```
+
+## Comparaison de chaine de caractères `Equals`
+
+**Pour comparer deux chaine de caractère `String` on doit utiliser la méthode `equals`**
+
+Plusieurs cas de comparaison existe en utilisant String. 
+
+
+
+``` java
+/* #####################################################
+    CAS 1 = COPARAISON SANS INSTANCIER L'OBJET String 
+ #######################################################*/
+
+Sting chaine1 = "ABC";
+String chaine2 = "ABC"; 
+
+boolean eagalOuPas = chaine1 == chaine2; 
+System.out.println(egalOuPas); // retourne true
+
+// ici nous n'avons pas instancié d'obet String
+// Le contenu de 'chaine1' est alors stocké dans un emplacement spécifique 
+// Lors de la déclaration de 'chaine2', sont contenu étant le même que 'chaine1' celui ci est egalement stocké au même endroit. 
+
+// les deux chaines de caratères étant stocké au même endroit leurs comparaison retourne 'true'
+
+/* #####################################################
+    CAS 2 = COPARAISON AVEC INSTANCE DE L'OBJET String 
+ #######################################################*/
+
+Sting chaine1 = new String("ABC"); 
+String chaine2 = new String("ABC"); 
+// ici on instancie l'objet String avec en paramètre la chaine de caractère
+
+boolean eagalOuPas = chaine1 == chaine2; 
+System.out.println(egalOuPas); // retourne false
+
+// Ici on créer 2 objets 
+// Ceux ci occupant des emplacement différent dans la mémoire leur comparaison retourne 'false'
+
+/* #####################################################
+    CAS 3 = UTILISATION DE LA METHODE 'equals' 
+ #######################################################*/
+
+Sting chaine1 = new String("ABC"); 
+String chaine2 = new String("ABC"); 
+
+boolean eagalOuPas = chaine1.equals(chaine2);
+// la méthode equals prend en paramètre la chaine à comparer (ici 'chaine2') 
+System.out.println(egalOuPas); // retourne true
+
+// la méthode equals réalise une comparaison semantique des deux chaines (comparaison caractères par caractères)
+```
+Il existe egalement la méthode `equalsIgnoreCase` qui permet de réaliser une comparaison de chaine de caractère sans tenir compte des majuscules. 
+
+## Surcharge de méthode 
+
+Permet d'ajouter des méthodes avec le même nom mais avec plus ou moins de paramètres 
+
+
+## `this`
+
+* Permet de faire réfférence à un objet en cours d'utilisation 
+* Dans une classe, lros d'un traitement (= une méthode) que nous voulons explicitement faire référence à l'objet courant (= à l'instance courante) 
+
+`this` permet de faire réfférence au variables d'instance de la classe 
+``` java
+// Varaibles d'instance de la classe 
+int a; 
+int b; 
+
+// Variables locales de la méthode 'example' à l'interieure de la classe (à l'interieur de l'objet courant)
+int example(int a, int b) { 
+  this.a = a; 
+  this.b = b;  
+}
+// this.a fait appel à la vairiable d'instance
+
+```
+> `this` permet de diféérencier les varaibles d'instances des variables locales
+> `this` permet donc d'appeller directement les varaibles d'instance
+
+## Propriété statique = Attribut statique = Variable de classe 
+
+Une propriété statique est une proppriété dont la valeur est définit par la classe
+
+Le contenu d'une propriété statique est commun à toute les instance. = 
+
+**Varaible de classe** = Le contenu d'une variable de classe est commun à toutes les instance de cette classe
+* Sont contenu peut changer, une fois la valeur du'ne variable de classe modifiée, la nouvelle valeur s'appliquera à toute les instances de cette classe. 
+
+Peut être appelé directement (en utilisant le nom de la classe qui la contient) `voiture.nbRoues`
+
+**Variable d'instance** = le contenu d'une variable d'instance peut différer en fonction des objets 
+
+
+## Méthode statique = méthode de classe ()
+
+Méthode qui n'implique aucun attribut d'instance = méthode qui ne comporte aucune variable d'instance
+
+Peut être appelé directement (en utilisant le nom de la classe qui la contient) `voiture.klaxonner`
+
+## Constructeur 
+
+**Constructeur :** Bloque 'instruction qui se trouve dans la classe à instancier 
+
+Modifier les constructeur permet de modifier la manière dont une classe est instancié 
+
+## Cast de variables = transtypage
+
+Une varaible peut être déclaré comme un type parent de l'objet pointé par cette variable. 
+
+> L'objet est alors d'un sous type du type de la variable
+
+``` java
+
+vehiculeMoteur voitureMichel = new Voiture(); 
+
+/* Onconstuit un objet de type Voiture qui est déposé dans la mémoire 
+voitureMichel est considéré comme un vehiculeMoteur et non plus comme une Voiture*/
+
+```
+> `voitureMichel` est considéré comme un `vehiculeMoteur` et non plus comme une `Voiture`
+> Les propriétés de la classe `Voiture` ne sont plus accessible à la variable `voitureMichel`
+
+Pour accéder aux propriétés de `Voiture` on peut 
+
+* Créer une nouvelle variable de type `Voiture` = `voitureMichelAvecPropiétésVoiture` 
+* Assigner à cette variable la variable `voitureMichel`
+> La varaible `voitureMichel` est actuelement considéré comme une variable de type vehiculeMoteur
+* Préciser que `voitureMichel` est un objet de type voiture = `(Voiture)` 
+
+
+``` java
+Voiture voitureMichelAvecPropiétésVoiture = (Voiture)voitureMichel; 
+```
+**`voitureMichelAvecPropiétésVoiture` est une nouvelle variable contenant `voitureMichel` en tant qu'objet `Voiture`**
+
+**A l'appel de cette nouvelle variable `voitureMichel` peut désormais bénéficier des propriétés de l'objet `Voiture`**
+
+
+## `super()`
+
+* Une classe fille hérite des propriétés et de méthodes de la classe parente MAIS 
+* **une classe fille n'hérite pas des construteur de la classe parente** = Les constrcuteurs ne sont pas hérités 
+
+Le mot clé `super()` permet d'accéder aux constructeur parent depuis une classe fille.
+
+Ce mot clés permet, lors de l'éxécution de faire référence à la classe parente
+
+## Covariance des méthodes 
+
+Permet de Redéfinir le type de retour d'une méthode de la classe parente
+
+## Les interfaces 
+
+[interface VS abstract class : définitions et différences](https://www.youtube.com/watch?v=mf0jQijo9C4)
+
+
+* Dans une interface toutes les méthodes sont par défaut abstraite et public 
+
+* **L'interface est comme un contrat.** 
+
+Afin de pouvoir créer une banque, on écrit en amont un contrat qui définit l'ensemble des services minimums obligatoires afin que celle ci puisse être considérée comme une 'banque'
+> une banque doit permettre le retrait d'argent 
+> une banque doit permettre le dépot d'argent... 
+
+L'ensemble des services obligatoire sont définit comme des méthodes vide au sein d'une interface `bank`
+
+lorsqu'on voudra créer une nouvelle banque `caIdf` on devra implémenter (`implements`) l'interface `bank` et définir les détails pour l'ensemble des méthodes. On devra définir la manière dont notre banque réalisera les différents services obligatoires. 
+
+L'interface permet de s'assurer que notre banque disposera bien d'un minimum de services obligatoires, sans pour autant nous dire comment les mettre en oeuvre. 
+
+Ainsi chaque banque peut réaliser les différents services comme elle le souhaite. 
+
+``` java
+/* 
+############################################
+        CREATION D'UNE INTERFACE 
+############################################
+*/
+
+public interface bank {
+  // définit l'ensemble des méthodes 
+  void retrait();
+  void dépôt(); 
+  ...
+}
+
+/*
+#############################################
+        UTILISATION D'UNE INTERFACE 
+#############################################
+*/ 
+public class caIDF implements bank {
+  // la classe caIdf impléments l'interface 'bank'
+  // l'ensemble des méthodes de l'interface `bank` doivent être définit ici 
+
+
+}
+
+```
+
+* Permet de bénéficier 'd'héritage multiples'
+
+* ? quelle interet d'une interface par rapport à un héritage ?  
+## Abstract classe 
+
+**Une classe `abstract` ne peut pas être instancier = on ne peut pas créer d'objet avec une classe `abstract`**
+> une classe abstract utilise donc forcément le principe d'héritage
+
+``` java 
+/* ######################################################
+            CREATION D'UNE CLASSE ABSTRACT
+##########################################################*/
+
+abstract class bank {
+  public void retrait(){
+    // méthode non abstraite
+    // on définit les détails de son application
+    System.out.println("méthode non abstraite");
+  }
+
+  public abstract int intérêt() {
+    // méthode abstraite
+    // Les déatails de st application ne st pas définits
+  }
+}
+
+/*############################################################
+            UTILISATION D'UNE CLASSE ABSTRACT
+############################################################*/
+
+// On créer une nouvelle classe 
+// celle ci 'extends' la classe abstraite 'bank'
+
+public class caIdf extends bank {
+  /* 
+    * Hérite de l'ensemble des méthode de 'bank' 
+    * Uniquement la méthode 'intérêt' doit être définit ici 
+  */
+    public abstract int intérêt() {
+      System.out.println("les intérêts sont de...");
+  }
+} 
+
+
+```
+* contient au moins une méthode `abstract`
+* Permet de définir les méthodes dans une classe et de définir l'implémentation de celle ci dans une autre classe 
+* Permet de définir 'ce qu'il faut faire' sans montrer 'comment le faire'.
+
+## Covariance des méthodes 
+
+Permet de redéfinir le type de retour d'une méthode parente 
+
+
+## `instanceof`
+
+Permet de vérifier si l'objet est une instance du type spécifié 
+
+
+``` java
+class Simple1 {  
+  
+  public static void main(String args[]) {  
+    Simple1 s =new Simple1();  
+    System.out.println(s instanceof Simple1);//true  
+  }  
+}  
+``` 
+> On vérifie que `s` qui est une instance de `Simple1()` est bien de type `Simple1`
+1. > La varaible `s` contient un objet de type `Simple1`
+2. > on vérifie que la variable `s` contient un objet appartenant à la classe `Simple1` 
+    > > on test SI la variable à gauche est une instance du type spécifié à droite
+
+
+
+
+
+
+
+
+
+# Revoir 60 - 62
