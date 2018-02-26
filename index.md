@@ -10,6 +10,7 @@
   * [Convertion ou Cast de variable](https://gregstone.github.io/Tuto.java/cast)
 * [Scanner : Lecture des entrées claviers](https://gregstone.github.io/Tuto.java/scanner)
 * [Les conditions](https://gregstone.github.io/Tuto.java/conditions)
+* [TP openClassRooms](https://gregstone.github.io/Tuto.java/tp)
 * [Les tableaux](https://gregstone.github.io/Tuto.java/tableau)
   * Tableau à une dimmension
   * Tableau multi dimmenssionnel
@@ -30,6 +31,10 @@
 * [Polymorphisme](https://gregstone.github.io/Tuto.java/polymorphisme)
   * Overiding
   * Overloading
+* [Packages](https://gregstone.github.io/Tuto.java/package)
+
+
+* [Divers](https://gregstone.github.io/Tuto.java/divers)
 
 * [Tuto JAVA Coursera](https://gregstone.github.io/Tuto.java/courserajava)
 

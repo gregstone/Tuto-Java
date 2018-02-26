@@ -1,6 +1,8 @@
 
 ### Accesseur et mutateur 
 
+Un accesseur est une méthode publique qui donne l'accès à une variable d'instance privée
+
 **Accesseur (= getters)**: méthode qui va nous permettre d'accéder aux variables de nos objets en lecture
 
 **Mutateur (= setters)**: méthode qui permet d'accéder aux varaibles des object en écriture
