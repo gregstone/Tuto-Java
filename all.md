@@ -1585,9 +1585,6 @@ Permet de Redéfinir le type de retour d'une méthode de la classe parente
 
 ## Les interfaces 
 
-[interface VS abstract class : définitions et différences](https://www.youtube.com/watch?v=mf0jQijo9C4)
-
-
 * Dans une interface toutes les méthodes sont par défaut abstraite et public 
 
 * **L'interface est comme un contrat.** 
@@ -1629,12 +1626,56 @@ public class caIDF implements bank {
 
 
 }
-
 ```
 
 * Permet de bénéficier 'd'héritage multiples'
 
-* ? quelle interet d'une interface par rapport à un héritage ?  
+# Interface depuis JAVA 8 
+
+* Possible de définir des méthodes par defaut 
+* Toutes les méthodes ne sont plus forcément abstraites
+  * Peuvent désormais contenir des méthodes statiques 
+
+``` java 
+public interface Mitose extends Reproduction {
+	public static void description() {
+		Reproduction.description();
+		System.out.println("Redéfinie dans Mitose.java");
+	}
+	
+	default void reproduire() {
+		System.out.println("Je me divise !");
+	}
+}
+
+public interface Pondre extends Reproduction {
+
+	public static void description() {
+		Reproduction.description();
+		System.out.println("Redéfinie dans Pondre.java");
+	}
+
+	
+	default void reproduire() {
+		System.out.println("Je ponds des oeufs !");
+	}
+	
+}
+
+public class Alien implements Pondre, Mitose {
+
+	public void reproduire() {
+		
+		System.out.println("Je suis un alien et :");
+		Pondre.super.reproduire();
+		Mitose.super.reproduire();
+
+	}
+}
+```
+> Le comportement par défaut permet de définir des méthodes dans l'interface sans devoir obligatoirement les définir dans les classe qui en hérite. 
+
+
 ## Abstract classe 
 
 **Une classe `abstract` ne peut pas être instancier = on ne peut pas créer d'objet avec une classe `abstract`**
@@ -1667,19 +1708,27 @@ abstract class bank {
 
 public class caIdf extends bank {
   /* 
-    * Hérite de l'ensemble des méthode de 'bank' 
+    * Hérite de l'ensemble des méthodes de 'bank' 
     * Uniquement la méthode 'intérêt' doit être définit ici 
   */
     public abstract int intérêt() {
       System.out.println("les intérêts sont de...");
   }
 } 
-
-
 ```
+
 * contient au moins une méthode `abstract`
 * Permet de définir les méthodes dans une classe et de définir l'implémentation de celle ci dans une autre classe 
 * Permet de définir 'ce qu'il faut faire' sans montrer 'comment le faire'.
+
+## Interface VS Abstract class
+
+[interface VS abstract class : définitions et différences](https://www.youtube.com/watch?v=mf0jQijo9C4)
+
+**Abstract classes** = What an object is : we are defining characteristics of an object type, specifying what an object is. 
+
+**Interface** = What the object can do : In an interface we define a capability and we bond to provide that capability. 
+
 
 ## Covariance des méthodes 
 
@@ -1704,6 +1753,359 @@ class Simple1 {
 1. > La varaible `s` contient un objet de type `Simple1`
 2. > on vérifie que la variable `s` contient un objet appartenant à la classe `Simple1` 
     > > on test SI la variable à gauche est une instance du type spécifié à droite
+
+## Pattern strategy 
+
+[Strategy design pattern](https://www.youtube.com/watch?v=-NCgRD9-C6o) 
+
+Les méthodes que nos objets appellent utilisent chacune un objet de comportement. 
+
+Nous pouvons donc définir des guerriers, des civils, des médecins… tous personnalisables, puisqu'il suffit de modifier l'instance de leur comportement pour que ceux-ci changent instantanément. La preuve par l'exemple.
+
+Code de la class `Personnage`
+
+1. instance des comportements
+
+``` java
+import com.sdz.comportement.*;
+
+public abstract class Personnage {
+
+  //Nos instances de comportement
+  protected EspritCombatif espritCombatif = new Pacifiste();
+  protected Soin soin = new AucunSoin();
+  protected Deplacement deplacement = new Marcher();	
+```
+
+1. > la variable `espritCombatif` utilise l'interface `EspritCombatif` 
+
+2. > l'interface `EspritCombatif` contient une méthode `combat()` à définir 
+
+3.  > la class `Pacifiste` implémente l'interface `EspritCombatif`
+    >
+    > La méthode `combat()`est définit avec "Je ne combat pas" 
+
+4. > La variable est donc de type `EspritCombatif` et créer un objet définissant le type d'esprit combatif. La variable est un objet contenant un autre objet.
+
+Cela nous permet d'appeler en paramètre le type `EspritCombatif` et d'adapter l'implémentation en spécifiant des classes différentes (Guerrier, Passifiste...). 
+
+``` java
+  //Constructeur par défaut
+  public Personnage(){}
+	
+  //Constructeur avec paramètres
+  public Personnage(EspritCombatif espritCombatif, Soin soin, Deplacement deplacement) {
+    this.espritCombatif = espritCombatif;
+    this.soin = soin;
+    this.deplacement = deplacement;
+  }
+
+  //Méthode de déplacement de personnage
+  public void seDeplacer(){
+    //On utilise les objets de déplacement de façon polymorphe
+    deplacement.deplacer();
+  }
+
+  // Méthode que les combattants utilisent
+  public void combattre(){
+    //On utilise les objets de déplacement de façon polymorphe
+    espritCombatif.combat();
+  }
+	
+  //Méthode de soin
+  public void soigner(){
+    //On utilise les objets de déplacement de façon polymorphe
+    soin.soigne();
+  }
+
+  //Redéfinit le comportement au combat
+  public void setEspritCombatif(EspritCombatif espritCombatif) {
+    this.espritCombatif = espritCombatif;
+  }
+
+  //Redéfinit le comportement de Soin
+  public void setSoin(Soin soin) {
+    this.soin = soin;
+  }
+
+  //Redéfinit le comportement de déplacement
+  public void setDeplacement(Deplacement deplacement) {
+    this.deplacement = deplacement;
+  }	
+}
+```
+
+On utilise l'interface comme variable d'instance dans Personnage
+
+
+## Les execptions 
+
+**Execptions** = erreurs
+**Capturer les exceptions** = gestion des erreurs
+* La capture d'éceptions permet de ne pas intérompre l'éxecution 
+
+### `try{} catch{}` : `finally{}`, `getMessage()`
+
+En JAVA une division par 0 renvoie une erreur de type `ArithmeticException`
+
+``` java
+public static void main(String[] args) {
+                
+  int j = 20, i = 0;
+  
+  // On isole la division par zéro dans le try
+  try {
+    System.out.println(j/i); 
+  
+  // On gère l'éxecption de la division par zéro dans le catch 
+  } catch (ArithmeticException e) {
+    System.out.println("Division par zéro !");
+    
+    /**  Variante possible : 
+      La méthode getMessage() de l'objet ArithmeticException affiche le message de l'erreur 
+    **/
+    System.out.println("Division par zéro !" + e.getMessage());
+  }
+  finally{
+
+  }
+
+  // Le code peut continuer à s'éxecuter
+  System.out.println("coucou toi !");
+}
+```
+> `finally {}`
+>
+> Permet d'éxecuter le code dans tous les cas (qu'une éxecption soit levée ou pas)
+
+
+### Execptions personnalisées
+
+* Dans une classe objet, vous pouvez prévenir la JVM qu'une méthode est dite « à risque » grâce au mot clé `throws`.
+
+`throws` permet de spécifier la classe qui va gérer l'erreur.
+  * Exemple une méthode qui affiche "il y a une erreur"
+
+Quand on utilise `throws` la gestion de l'erreur est assuré par la méthode appelante
+
+``` java 
+import java.io.*;
+
+// class qui va générer l'erreur
+class ThrowExample { 
+  // on indique qu'elle peut lancer deux types d'ereurs : IOException OU ClassNotFoundException
+  void myMethod(int num)throws IOException, ClassNotFoundException{ 
+     if(num==1)
+        throw new IOException("IOException Occurred");
+     else
+        throw new ClassNotFoundException("ClassNotFoundException");
+  } 
+} 
+
+
+public class Example1{ 
+  public static void main(String args[]){ 
+   try{ 
+     ThrowExample obj=new ThrowExample(); 
+     obj.myMethod(1); 
+   }catch(Exception ex){
+     System.out.println(ex);
+    } 
+  }
+}
+```
+* SI un erreur arrive dans une classe fille 
+* SI on utilise le mot clé `throws` la gestion de cette erreur sera réalisé par la classe mère (la classe mère posède une méthode qui appel la méthode de la classe fille)
+  * La méthode appelante va prendre en charge la gestion de l'erreur
+
+### Les énumérations 
+
+**`enum`**
+
+* structures qui définissent une liste de valeurs possibles. 
+* permet de créer des types de données personnalisés. 
+
+Nous allons par exemple construire le type Langage qui ne peut prendre qu'un certain nombre de valeurs : JAVA, PHP, C, etc.
+
+
+``` java 
+public enum Langage {
+  JAVA,
+  C,
+  CPlus,
+  PHP;	
+} 
+```
+> Créer une structure de données qui encapsule 4 « objets ». 
+>
+> En fait, c'est comme si vous aviez un objet JAVA, un objet C, un objet CPlus et un objet PHP partageant tous les mêmes méthodes issues de la classe java.lang.Object
+
+``` java
+public class Main {
+  public static void main(String args[]){
+    for(Langage lang : Langage.values()){
+      if(Langage.JAVA.equals(lang))
+        System.out.println("J'aime le : " + lang);
+      else
+        System.out.println(lang);
+    }
+  }
+}
+```
+> `.values()` retourne la liste des éléments préssents dans l'numération
+
+
+Les énumérations permettent de définir les arguments valides. SI on passe un arguement non péresent dans l'énumération le code renvoi un erreur
+> Sans énumarations, SI on passe un arguement invalide le code continu et ne renvoi pas d'erreurs
+
+1. **Exemple sans énumértion** 
+
+``` java 
+public class AvantEnumeration {
+
+  public static final int PARAM1 = 1;
+  public static final int PARAM2 = 2;
+   
+  public void fait(int param){
+    if(param == PARAM1)
+      System.out.println("Fait à la façon N°1");
+    if(param == PARAM2)
+      System.out.println("Fait à la façon N°2");
+  }
+   
+  public static void main(String args[]){
+    AvantEnumeration ae = new AvantEnumeration();
+    ae.fait(AvantEnumeration.PARAM1);
+    ae.fait(AvantEnumeration.PARAM2);
+    ae.fait(4); // Le 4 ne fait pas parti des paramètres du if
+  }
+}
+```
+> ICI même si Le 4 ne fait pas parti des paramètres du if, le code ne renvoi pas d'erreurs.
+
+
+2. **Exemple avec énumération** 
+
+``` java 
+public class AvantEnumeration {
+
+  public void fait(Langage param){
+    if(param.equals(Langage.JAVA))
+      System.out.println("Fait à la façon N°1");
+    if(param.equals(Langage.PHP))
+      System.out.println("Fait à la façon N°2");
+  }
+   
+  public static void main(String args[]){
+    AvantEnumeration ae = new AvantEnumeration();
+    ae.fait(Langage.JAVA);
+    ae.fait(Langage.PHP);
+    ae.fait(4); // 4 ne fait pas parti de l'énumération `Language`
+  }
+}
+```
+> Ici nous avons définit une énumération `Language`, le numéro 4 passé en paramètre ne faisant pas parti de celle ci le code renvoi une erreur. 
+
+
+## Les collections d'objets
+
+The Java Collections Framework is a collection of interfaces and classes which helps in storing and processing the data efficiently. This framework has several useful classes which have tons of useful functions. 
+
+**Les collections permettent de stocker un nombre variable d'objets**
+
+``` 
+|interface `Collection` 
+|--
+  |-- interface `List` 
+    |-- `Vector`
+    |-- `LinkedList` 
+    |-- `ArrayList`
+    |-- ``
+  |-- interface `Set` 
+    
+    |-- interface`SortedSet` 
+```
+
+### objet List
+
+`LinkedList`: 
+* Chaque élément de la liste est lié aux élément adjacent par une réfférence
+* Pour le 1er élément, l'élément précédent vaut `null` 
+* Pour le dernier élément, l'élément suivant vaut `null`
+* Implémentent l'interface `Iterator`: 
+  * objet qui à pour fonction de parcourir une collection
+
+`ArrayList`:
+* Pas de taille limite
+* Permet d'insérer n'importe quel type de données 
+* Moins lourd que `linkedList` (car les éléments ne sont pas liés aux éléments adjacent)
+* Plus rapide que `linkedList` pour la lecture de données
+* Plus lente que `linkedList` pour ajouter ou supprimer des données en milieu de liste 
+
+### objet Map
+
+* Fonctionne avec une association clés unique / valeurs
+* Une valeur peut être associées à plusieurs clés
+
+`Hashtable`
+* on parcours l'objet grace à la classe `Enumeration`
+* l'objet `Enumeration` contient notre `Hashtable` et permet de le parcourir
+* n'accepte pas la valeur `null`
+* Utilisable dans plusieurs processus en simultané = thread safe
+
+``` java
+import java.util.Enumeration;
+import java.util.Hashtable;
+
+public class Test {
+
+  public static void main(String[] args) {
+
+    Hashtable ht = new Hashtable();
+    ht.put(1, "printemps");
+    ht.put(10, "été");
+    ht.put(12, "automne");
+    ht.put(45, "hiver");
+
+    Enumeration e = ht.elements();
+
+    while(e.hasMoreElements())
+      System.out.println(e.nextElement());
+  }
+}
+```
+
+`HashMap`
+* accepte la valeur `null`
+* non thread safe
+
+### objet Set
+
+* `Set` est une collection qui n'accepte pas les doublons
+* Très utilisé lorsqu'on doit manipuler une grande quantitée de données
+
+`HashSet`
+* On le parcours avec un objet `Iterator`
+* on peut extraire de cet objet un tableau d'`object`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

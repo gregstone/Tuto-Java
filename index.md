@@ -33,6 +33,9 @@
   * Overloading
 * [Packages](https://gregstone.github.io/Tuto.java/package)
 
+* [Interfaces](https://gregstone.github.io/Tuto.java/interface)
+* Pattern strategy (AF)
+* Les Execptions (AF)
 
 * [Divers](https://gregstone.github.io/Tuto.java/divers)
 

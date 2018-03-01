@@ -27,3 +27,4 @@ public class A {
 * **Les classes déclarées public sont visibles depuis l'extérieur du package qui les contient.**
 * **Les classes n'ayant pas été déclarées public ne sont pas visibles depuis l'extérieur du package qui les contient.**
 * Si une classe déclarée public dans son package a une variable d'un type ayant une portée default, cette dernière ne pourra pas être modifiée depuis l'extérieur de son package.
+
