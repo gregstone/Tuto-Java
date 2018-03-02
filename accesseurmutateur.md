@@ -1,5 +1,5 @@
 
-### Accesseur et mutateur 
+# Accesseur et mutateur 
 
 Un accesseur est une méthode publique qui donne l'accès à une variable d'instance privée
 
@@ -65,7 +65,7 @@ public class Ville {
 > Accesseur = 
 * `getNom()`
 * méthode public (donc accessible depuis l'exterieur)
-* de même type que la varaible qu'il retourne
+* de même type que la variable qu'il retourne
 
 > Mutateur = 
 * `setNom()`
@@ -114,3 +114,7 @@ Les différents types de méthodes dans un objet :
 * les accesseurs -> méthodes servant à accéder aux données des objets ;
 * les méthodes d'instance → méthodes servant à la gestion des objets.
 ------
+
+## Pourquoi utiliser (ou non) les getters / setter 
+
+[utilitée des gettters/setters : pourquoi ?](https://dzone.com/articles/getter-setter-use-or-not-use-0)

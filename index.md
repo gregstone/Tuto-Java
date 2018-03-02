@@ -35,7 +35,7 @@
 
 * [Interfaces](https://gregstone.github.io/Tuto.java/interface)
 * Pattern strategy (AF)
-* Les Execptions (AF)
+* Les Execptionss (AF)
 
 * [Divers](https://gregstone.github.io/Tuto.java/divers)
 

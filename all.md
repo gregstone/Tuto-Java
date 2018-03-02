@@ -813,6 +813,11 @@ Les différents types de méthodes dans un objet :
 * les méthodes d'instance → méthodes servant à la gestion des objets.
 ------
 
+## Pourquoi utiliser (ou non) les getters / setter 
+
+[utilitée des gettters/setters : pourquoi ?](https://dzone.com/articles/getter-setter-use-or-not-use-0)
+
+
 ### Utilisation de `this` (A revoir)
 
 **Accès aux méthodes d'un objet :**
@@ -2041,6 +2046,8 @@ The Java Collections Framework is a collection of interfaces and classes which h
 * Moins lourd que `linkedList` (car les éléments ne sont pas liés aux éléments adjacent)
 * Plus rapide que `linkedList` pour la lecture de données
 * Plus lente que `linkedList` pour ajouter ou supprimer des données en milieu de liste 
+
+[Array list example for ex8 tuto coursera](https://www.javatpoint.com/java-arraylist)
 
 ### objet Map
 
